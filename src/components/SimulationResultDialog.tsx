@@ -5,9 +5,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+} from '@/components/reuse/dialog'
+import { Button } from '@/components/reuse/button'
+import { Card } from '@/components/reuse/card'
 import { RotateCcw, Trophy } from 'lucide-react'
 
 interface SimulationResultDialogProps {
@@ -84,7 +84,7 @@ SimulationResultDialogProps) => {
             <RotateCcw className="h-4 w-4" />
             Restart Simulation
           </Button>
-          {/* 
+          {/*
           <Button
             variant="outline"
             className="w-full gap-2 font-bold"

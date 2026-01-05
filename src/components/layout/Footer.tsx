@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Zap, Gauge, Locate, Clock, } from 'lucide-react'
 
-import { Separator } from '@/components/ui/separator'
-import { Slider } from '@/components/ui/slider'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Separator } from '@/components/reuse/separator'
+import { Slider } from '@/components/reuse/slider'
+import { Card, CardContent, CardHeader } from '@/components/reuse/card'
 
 import { cn, formatTime } from '@/lib/utils'
 import { useCannonActions, useCannonDerived, useCannonState } from '@/context'
@@ -122,6 +122,7 @@ const Footer = () => {
               onChange={(value) => handleChangePosition('x', value)}
               disabled={isPlaying}
             />
+
             <Range
               label="Horizontal"
               min={20}
@@ -132,6 +133,30 @@ const Footer = () => {
               disabled={isPlaying}
             />
           </FooterSection>
+            <FooterSection
+            className="border-r border-l"
+            title="Target Position"
+            icon={<Locate className="w-4 h-4" />}>
+            <Range
+              label="Vertical"
+              min={60}
+              max={560}
+              value={cannonSettings.position.x}
+              unit="m"
+              onChange={(value) => handleChangePosition('x', value)}
+              disabled={isPlaying}
+            />
+            <Range
+              label="Horizontal"
+              min={20}
+              max={348}
+              value={cannonSettings.position.y}
+              unit="m"
+              onChange={(value) => handleChangePosition('y', value)}
+              disabled={isPlaying}
+            />
+          </FooterSection>
+
         </div>
         <div className="w-full">
           <Card className="py-4 shadow-none w-full rounded-none border-0 gap-1.5">

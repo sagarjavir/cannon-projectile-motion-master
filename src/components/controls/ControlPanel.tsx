@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
-import { Checkbox } from '@/components/ui/checkbox'
-import { Separator } from '@/components/ui/separator'
+import { Checkbox } from '@/components/reuse/checkbox'
+import { Separator } from '@/components/reuse/separator'
 import { useCannonActions, useCannonState } from '@/context'
 
 interface ItemProps {

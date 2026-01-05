@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import Clarity from '@microsoft/clarity'
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@/components/reuse/sonner'
 
-import { CannonProvider } from './context/CannonProvider'
+import { CannonProvider } from './context/CannonProv'
 
 import ControlPanel from './components/controls/ControlPanel'
 import AppLayout from './components/layout/AppLayout'

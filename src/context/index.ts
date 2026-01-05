@@ -1,5 +1,5 @@
-export { CannonProvider } from './CannonProvider'
+export { CannonProvider } from './CannonProv'
 
-export { useCannonState } from './CannonStateContext'
-export { useCannonActions } from './CannonActionsContext'
-export { useCannonDerived } from './CannonDerivedContext'
+export { useCannonState } from './CannonStateCnt'
+export { useCannonActions } from './CannonActContext'
+export { useCannonDerived } from './CannonDrvContext'
