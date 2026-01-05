@@ -1,7 +1,7 @@
 import { useCannonActions, useCannonState } from '@/context'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 
-const BARREL_LENGTH = 70
+const BARREL_LENGTH = 60
 const ROTATION_SPEED = 1
 const MOVE_SPEED = 5
 
@@ -107,14 +107,14 @@ const Cannon: React.FC = () => {
       <g
         transform={`translate(${position.x}, ${position.y}) rotate(${angle})`}
         style={{ cursor: 'crosshair' }}>
-        <circle r={20} fill="#444" />
+        <circle r={20} fill="#9e9898ff" />
         <rect
           x={0}
           y={-8}
           width={BARREL_LENGTH}
           height={14}
           rx={6}
-          fill="#1f2933"
+          fill="#afb5bbff"
         />
       </g>
     </svg>

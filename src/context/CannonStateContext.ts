@@ -8,7 +8,7 @@ export const CannonStateContext = createContext<StateType | null>(null)
 export const useCannonState = () => {
   const ctx = useContext(CannonStateContext)
   if (!ctx) {
-    throw new Error('useCannonState must be used within CannonProvider')
+    throw new Error('useCannonState must be used with CannonProvider')
   }
   return ctx
 }

@@ -1,7 +1,6 @@
 import { memo } from 'react'
-import { Zap, Gauge, Flag, Rocket, Locate, Clock, Info } from 'lucide-react'
+import { Zap, Gauge, Locate, Clock, } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Slider } from '@/components/ui/slider'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -10,15 +9,15 @@ import { cn, formatTime } from '@/lib/utils'
 import { useCannonActions, useCannonDerived, useCannonState } from '@/context'
 
 const Footer = () => {
-  const { cannonSettings, isPlaying, targetSummary } = useCannonState()
+  const { cannonSettings, isPlaying } = useCannonState()
   const {
     handleChangeSettings,
     handleChangePosition,
     // handleTargetPosition,
-    handleToggleFire,
+
     handleSelectCannonAngle
   } = useCannonActions()
-  const { activeProjectile, currentTarget } = useCannonDerived()
+  const { activeProjectile } = useCannonDerived()
 
   const currentSpeed = Math.sqrt(
     (activeProjectile?.vx ?? 0) * (activeProjectile?.vx ?? 0) +
@@ -31,35 +30,6 @@ const Footer = () => {
       <div className="flex flex-col lg:flex-row items-stretch">
         {/* FIRE CONTROLS */}
         <div className="flex items-center gap-4 px-4 py-1 border-b lg:border-b-0 lg:border-r">
-          <Button
-            size="lg"
-            className="gap-2 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 cursor-pointer"
-            onClick={() => handleToggleFire()}>
-            <Rocket className="w-5 h-5" />
-            FIRE
-          </Button>
-
-          {/* <div className="flex items-center gap-2 rounded-full px-2 py-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() =>
-                isPaused
-                  ? handleResumeProjectile()
-                  : isPlaying
-                  ? handleToogleIsPause(true)
-                  : handleRestartProjectile()
-              }
-              className="cursor-pointer text-gray-500 hover:text-black">
-              {isPaused ? (
-                <Play className="w-5 h-5" />
-              ) : isPlaying ? (
-                <Pause className="w-5 h-5" />
-              ) : (
-                <RotateCcw className="w-5 h-5" />
-              )}
-            </Button>
-          </div> */}
         </div>
 
         {/* LIVE STATS */}
@@ -162,73 +132,10 @@ const Footer = () => {
               disabled={isPlaying}
             />
           </FooterSection>
-
-          <FooterSection
-            className="border-r"
-            title="Target Position"
-            icon={<Flag className="w-4 h-4" />}>
-            <Range
-              label="Vertical"
-              min={0}
-              max={65}
-              value={currentTarget?.position.y ?? 0}
-              unit="m"
-              disabled={true}
-              // onChange={(value: number) => handleTargetPosition('y', value)}
-            />
-            <Range
-              label="Horizontal"
-              min={50}
-              max={300}
-              value={currentTarget?.position.x ?? 0}
-              unit="m"
-              disabled={true}
-              // onChange={(value: number) => handleTargetPosition('x', value)}
-            />
-          </FooterSection>
         </div>
         <div className="w-full">
           <Card className="py-4 shadow-none w-full rounded-none border-0 gap-1.5">
-            <CardHeader className="px-2">
-              <h3 className="flex gap-2 text-xs font-bold uppercase text-black">
-                <Info className="w-4 h-4" />
-                Summary
-              </h3>
-            </CardHeader>
-            <CardContent className="px-4 shadow border rounded-md">
-              <div className="flex items-center w-full gap-2 p-3 h-fit">
-                {/* Total Target */}
-                <div className="flex flex-col items-center justify-center w-full">
-                  <span className="mb-0.5 text-xs font-bold uppercase text-slate-400">
-                    Targets
-                  </span>
-                  <span className="font-mono font-bold text-xl text-blue-600 dark:text-blue-400">
-                    {targetSummary.totolTargets}
-                  </span>
-                </div>
-                {/* Shots */}
-                <div className="flex flex-col items-center justify-center w-full">
-                  <span className="mb-0.5 text-xs font-bold uppercase text-slate-400">
-                    Shots Fired
-                  </span>
-                  <span className="font-mono font-bold text-xl text-slate-700 dark:text-slate-200">
-                    {targetSummary?.countTotalFire ?? 0}
-                  </span>
-                </div>
 
-                {/* Hits */}
-                <div className="flex flex-col items-center justify-center w-full">
-                  <span className="mb-0.5 text-xs font-bold uppercase text-slate-400">
-                    Hits
-                  </span>
-                  <span className="font-mono font-bold text-xl text-green-600 dark:text-green-400">
-                    {targetSummary?.countTargetHit ?? 0}
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-
-            {/* Vertical separators */}
           </Card>
         </div>
       </div>

@@ -44,8 +44,6 @@ const CanvasScene = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number | null>(null)
-  const fireSoundRef = useRef<HTMLAudioElement | null>(null)
-  const exlosionSoundRef = useRef<HTMLAudioElement | null>(null)
   const currentShotIdRef = useRef<string | null>(null)
   const [scale] = useState(1)
   const stateRef = useRef<Pick<CannonContextType, 'state' | 'helperState'>>({
@@ -67,9 +65,6 @@ const CanvasScene = () => {
     const dy = py - ty
     return dx * dx + dy * dy <= radius * radius
   }
-
-  /* ───────────────── CANVAS SETUP ───────────────── */
-
   const resizeCanvas = () => {
     const canvas = canvasRef.current
     const container = containerRef.current
@@ -88,8 +83,6 @@ const CanvasScene = () => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   }
 
-  /* ───────────────── COORDINATE UTILS ───────────────── */
-
   const metersToPixelsX = (m: number, w: number) => (m / WORLD_WIDTH) * w
 
   const metersToPixelsY = (m: number, h: number) =>
@@ -105,9 +98,6 @@ const CanvasScene = () => {
       ((canvasHeight - py - GROUND_OFFSET) * WORLD_HEIGHT) / canvasHeight,
     []
   )
-
-  /* ───────────────── DRAW HELPERS ───────────────── */
-
   const drawGrid = useCallback(
     (ctx: CanvasRenderingContext2D, w: number, h: number) => {
       const grid = w / AXIS_DIVISIONS / 12
@@ -264,11 +254,7 @@ const CanvasScene = () => {
       if (isProjectileHitTarget(p.x, p.y, targetX, targetY, TARGET_RADIUS)) {
         p.active = false
         toast.info('Target hit!', { position: 'top-center' })
-        if (exlosionSoundRef.current) {
-          exlosionSoundRef.current.pause()
-          exlosionSoundRef.current.currentTime = 0
-          exlosionSoundRef.current.play()
-        }
+
         stopSimulation()
         handleChangeFireSummary(true)
       }
@@ -368,12 +354,8 @@ const CanvasScene = () => {
     }
     const paths = stateRef.current.state.projectilePaths
     if (Object.keys(paths ?? {}).length > 0) {
-      Object.values(paths).forEach((path, index) => {
+      Object.values(paths).forEach((path) => {
         if (path.paths.length < 2) return
-
-        const hue = (index * 60) % 360
-        ctx.strokeStyle = `hsla(${hue}, 80%, 55%, 0.6)`
-
         ctx.lineWidth = 4
         ctx.setLineDash([])
 
@@ -516,15 +498,7 @@ const CanvasScene = () => {
 
     animationRef.current = requestAnimationFrame(animate)
 
-    /* ───── SOUND ───── */
-    if (fireSoundRef.current) {
-      fireSoundRef.current.pause()
-      fireSoundRef.current.currentTime = 0
-      fireSoundRef.current.play()
-    }
-    if (exlosionSoundRef.current) {
-      exlosionSoundRef.current!.currentTime = 0
-    }
+
   }, [
     animate,
     state.cannonSettings,
@@ -553,17 +527,6 @@ const CanvasScene = () => {
     lastTimeRef.current = null
     currentShotIdRef.current = null
 
-    if (fireSoundRef.current) {
-      fireSoundRef.current.pause()
-      fireSoundRef.current.src = ''
-      fireSoundRef.current = null
-    }
-
-    if (exlosionSoundRef.current) {
-      exlosionSoundRef.current.pause()
-      exlosionSoundRef.current.src = ''
-      exlosionSoundRef.current = null
-    }
 
     window.removeEventListener('resize', resizeCanvas)
 
@@ -594,12 +557,6 @@ const CanvasScene = () => {
     }
   }, [draw, helperState.currentTarget])
 
-  useEffect(() => {
-    fireSoundRef.current = new Audio('/assets/sound/cannon_fire.mp3')
-    fireSoundRef.current.volume = 0.5
-    exlosionSoundRef.current = new Audio('/assets/sound/exlosion.mp3')
-    exlosionSoundRef.current.volume = 0.5
-  }, [])
 
   useEffect(() => {
     stateRef.current = {
@@ -644,35 +601,6 @@ const CanvasScene = () => {
       className="relative w-full h-full overflow-hidden bg-day-sky">
       <canvas ref={canvasRef} className="absolute inset-0" />
       <Cannon />
-
-      {/* UI */}
-      {/* <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20">
-        <div className="flex flex-col gap-1 rounded-lg bg-white/70 backdrop-blur-md p-0.5 shadow-sm border">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="cursor-pointer"
-            onClick={() => setScale((s) => Math.min(s + 0.1))}>
-            <Plus />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="cursor-pointer"
-            onClick={() => setScale(1)}>
-            <Maximize />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="cursor-pointer"
-            onClick={() => setScale((s) => Math.max(s - 0.1, 0.3))}>
-            <Minus />
-          </Button>
-        </div>
-      </div> */}
     </main>
   )
 }

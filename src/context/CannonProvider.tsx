@@ -16,8 +16,6 @@ import { generateTargets } from '@/lib/utils'
 
 type StateType = CannonContextType['state']
 
-/* ───────────────── INITIAL STATE ───────────────── */
-
 const initialState: StateType = {
   controlPannel: {
     isVector: false,
@@ -50,12 +48,12 @@ const initialState: StateType = {
   }
 }
 
-/* ───────────────── PROVIDER ───────────────── */
+
 
 export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<StateType>(initialState)
 
-  /* ─────────────── CORE HELPER ─────────────── */
+
 
   const handleStateChange = useCallback(
     (
@@ -71,7 +69,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     []
   )
 
-  /* ─────────────── PLAYBACK ─────────────── */
+
 
   const handleToogleIsPlaying = useCallback(
     (isPlaying?: boolean) => {
@@ -102,7 +100,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     }))
   }, [handleStateChange])
 
-  /* ─────────────── RESET ─────────────── */
+
 
   const handleReset = useCallback(() => {
     setState({ ...initialState, isReset: true })
@@ -115,7 +113,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     }))
   }, [handleStateChange])
 
-  /* ─────────────── FIRE ─────────────── */
+
 
   const handleToggleFire = useCallback(
     (isFire?: boolean) => {
@@ -137,7 +135,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     [handleStateChange]
   )
 
-  /* ─────────────── UI CONTROLS ─────────────── */
+
 
   const handleToggleControlPannel = useCallback(
     (type: ControlPanelToggleKey) => {
@@ -180,21 +178,6 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     },
     [handleStateChange]
   )
-
-  // const handleTargetPosition = useCallback(
-  //   (position: 'x' | 'y', value?: number) => {
-  //     handleStateChange((prev) => ({
-  //       ...prev,
-  //       targetPosition: {
-  //         ...prev.targetPosition,
-  //         [position]: value
-  //       }
-  //     }))
-  //   },
-  //   [handleStateChange]
-  // )
-
-  /* ─────────────── PROJECTILES ─────────────── */
 
   const handleAddProjectilePath = useCallback(
     (id: string | null, pathInfo?: ProjectilePathEntry) => {
@@ -290,7 +273,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     [handleStateChange]
   )
 
-  /* ─────────────── DERIVED ─────────────── */
+
 
   const activeProjectile = useMemo(() => {
     if (!state.activeProjectileId) return null
@@ -304,7 +287,7 @@ export const CannonProvider = ({ children }: { children: React.ReactNode }) => {
     [totalTargets, state.targetSummary.currentTargetIndex]
   )
 
-  /* ─────────────── DERIVED ─────────────── */
+
 
   const handleChangeFireSummary = useCallback(
     (isTargetHit?: boolean) => {
