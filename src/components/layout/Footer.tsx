@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { Zap, Gauge, Locate, Clock, } from 'lucide-react'
+import { Zap, Gauge, Locate, Clock, Flag, } from 'lucide-react'
 
 import { Separator } from '@/components/reuse/separator'
 import { Slider } from '@/components/reuse/slider'
@@ -17,7 +17,7 @@ const Footer = () => {
 
     handleSelectCannonAngle
   } = useCannonActions()
-  const { activeProjectile } = useCannonDerived()
+  const { activeProjectile, currentTarget } = useCannonDerived()
 
   const currentSpeed = Math.sqrt(
     (activeProjectile?.vx ?? 0) * (activeProjectile?.vx ?? 0) +
@@ -133,27 +133,26 @@ const Footer = () => {
               disabled={isPlaying}
             />
           </FooterSection>
-            <FooterSection
-            className="border-r border-l"
+          <FooterSection
+            className="border-r"
             title="Target Position"
-            icon={<Locate className="w-4 h-4" />}>
+            icon={<Flag className="w-4 h-4" />}>
             <Range
               label="Vertical"
-              min={60}
-              max={560}
-              value={cannonSettings.position.x}
+              min={0}
+              max={65}
+              value={currentTarget?.position.y ?? 0}
               unit="m"
-              onChange={(value) => handleChangePosition('x', value)}
-              disabled={isPlaying}
+              disabled={true}
+              // onChange={(value: number) => handleTargetPosition('y', value)}
             />
             <Range
               label="Horizontal"
-              min={20}
-              max={348}
-              value={cannonSettings.position.y}
+              min={50}
+              max={300}
+              value={currentTarget?.position.x ?? 0}
               unit="m"
-              onChange={(value) => handleChangePosition('y', value)}
-              disabled={isPlaying}
+              disabled={true}
             />
           </FooterSection>
 
