@@ -159,14 +159,14 @@ const CanvasScene = () => {
         h
       )
 
-      ctx.strokeStyle = '#2563eb'
+      ctx.strokeStyle = '#944f4fff'
       ctx.lineWidth = 6
       ctx.beginPath()
       ctx.moveTo(x - 18, y + 12)
       ctx.lineTo(x + 18, y + 12)
       ctx.stroke()
 
-      ctx.fillStyle = '#ef4444'
+      ctx.fillStyle = '#361ee7ff'
       ctx.beginPath()
       ctx.arc(x, y - 8, 10, 0, Math.PI * 2)
       ctx.fill()
