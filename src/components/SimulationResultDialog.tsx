@@ -33,7 +33,7 @@ SimulationResultDialogProps) => {
         className="max-w-sm p-6 text-center">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-slate-800 dark:text-white">
-            <Trophy className="w-6 h-6" /> Simulation Passed!
+            <Trophy className="w-6 h-6" />  Passed!
           </DialogTitle>
           <DialogDescription>
             <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
@@ -66,14 +66,6 @@ SimulationResultDialogProps) => {
             </span>
           </Card>
 
-          {/* <Card className="p-2.5 flex flex-col items-center bg-slate-50 dark:bg-slate-900/50">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">
-              Total Time
-            </span>
-            <span className="text-lg font-mono font-bold text-green-600 dark:text-green-400">
-              {totalTime}
-            </span>
-          </Card> */}
         </div>
 
         {/* Actions */}
@@ -82,16 +74,8 @@ SimulationResultDialogProps) => {
             className="w-full gap-2 font-bold shadow-lg shadow-red-500/20 cursor-pointer"
             onClick={() => window.location.reload()}>
             <RotateCcw className="h-4 w-4" />
-            Restart Simulation
+            Restart
           </Button>
-          {/*
-          <Button
-            variant="outline"
-            className="w-full gap-2 font-bold"
-            onClick={onViewResults}>
-            <BarChart3 className="h-4 w-4" />
-            View Results
-          </Button> */}
         </div>
       </DialogContent>
     </Dialog>
