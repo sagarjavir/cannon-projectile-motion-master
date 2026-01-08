@@ -37,7 +37,7 @@ SimulationResultDialogProps) => {
           </DialogTitle>
           <DialogDescription>
             <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
-              Outstanding! You have successfully hit all{' '}
+              You have successfully hit all{' '}
               <span className="font-bold text-emerald-600 dark:text-emerald-400">
                 {targetsHit} targets
               </span>{' '}
